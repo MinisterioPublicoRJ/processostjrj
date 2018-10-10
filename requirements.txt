@@ -4,6 +4,6 @@ certifi==2018.8.24
 chardet==3.0.4
 idna==2.7
 requests==2.19.1
-slugify==0.0.1
+python-slugify==1.2.6
 urllib3==1.23
-lxml==4.2.5
+lxml==4.1.1
