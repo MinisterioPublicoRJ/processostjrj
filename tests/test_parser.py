@@ -4,10 +4,11 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from processostjrj.parser import (parse_metadados,
-                              area_dos_metadados,
-                              extrai_dados_colunas,
-                              parse_itens,
-                              parse_processo_apensado)
+                                  area_dos_metadados,
+                                  extrai_dados_colunas,
+                                  parse_itens,
+                                  parse_processo_apensado,
+                                  prepara_soup)
 from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_2,
                                  processo_judicial_3,
@@ -16,7 +17,8 @@ from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_6,
                                  processo_judicial_7,
                                  trecho_processo_judicial_1,
-                                 process_com_mandado_pagamento)
+                                 process_com_mandado_pagamento,
+                                 processo_sem_movimentos)
 
 
 def _prepara_html(html, tag='tr'):
@@ -276,6 +278,23 @@ class ParserMetadados(TestCase):
         esperado = ['Tipo:', 'Conclusão']
 
         self.assertEqual(dados_das_colunas, esperado)
+
+    def test_extrai_metadados_processos_sem_movimentos(self):
+        linhas = _prepara_html(processo_sem_movimentos)
+        inicio, fim = area_dos_metadados(linhas)
+
+        self.assertEqual(inicio, 6)
+        self.assertEqual(fim, 35)
+
+    def test_prepara_soup(self):
+        soup = BeautifulSoup(processo_sem_movimentos, 'lxml')
+        soup_limpo = prepara_soup(soup)
+
+        elementos_indesejados = soup_limpo.find(
+            'div', {'id': 'wndHistoricoMandados'}
+        )
+
+        self.assertIsNone(elementos_indesejados)
 
 
 class ComparaItensProcessoMixin:

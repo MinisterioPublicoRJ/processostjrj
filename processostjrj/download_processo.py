@@ -2,7 +2,12 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from .utils import formata_numero_processo, cria_hash_do_processo
-from .parser import parse_metadados, area_dos_metadados, parse_itens
+from .parser import (
+    parse_metadados,
+    area_dos_metadados,
+    parse_itens,
+    prepara_soup
+)
 from logging import Logger
 
 URL_PROCESSO_TJRJ = (
@@ -26,7 +31,7 @@ def processo(processo, headers=None, timeout=10):
             headers=headers,
             timeout=10
         )
-        soup = BeautifulSoup(resp.content, 'lxml')
+        soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         linhas = soup.find_all('tr')
         inicio, fim = area_dos_metadados(linhas)
         dados_processo.update(

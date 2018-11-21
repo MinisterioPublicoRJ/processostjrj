@@ -174,6 +174,7 @@ def parse_itens(soup, numero_processo, inicio_itens):
 def area_dos_metadados(linhas_de_dados):
     # Aparentemente esse valor e fixo
     inicio = 0
+    fim = -1
     atributos_inicio_metadados = {'align': 'center',
                                   'class': ['negrito'],
                                   'colspan': '2'}
@@ -186,6 +187,9 @@ def area_dos_metadados(linhas_de_dados):
             fim = indice - 1
             break
 
+    if fim < 0:
+        fim = len(linhas_de_dados)
+
     return inicio, fim
 
 
@@ -197,3 +201,9 @@ def extrai_dados_colunas(colunas):
         )
 
     return linha
+
+
+def prepara_soup(soup):
+    elementos_indesejados = soup.find('div', {'id': 'wndHistoricoMandados'})
+    elementos_indesejados.decompose()
+    return soup
