@@ -1,11 +1,14 @@
 from unittest import TestCase
 
+from bs4 import BeautifulSoup
+
+from processostjrj.parser import estripa
 from processostjrj.utils import (
     formata_numero_processo,
     limpa_conteudo,
     remove_data_consulta,
     cria_hash_do_movimento,
-    cria_hash_do_processo
+    cria_hash_do_processo,
 )
 from .fixtures.processos import processo_judicial_1
 
@@ -30,6 +33,27 @@ class Utils(TestCase):
         esperado = 'Av. Presidente Lincoln 857'
 
         self.assertEqual(conteudo_limpo, esperado)
+
+    def test_estripa_texto_com_tags_erradas(self):
+        html = """
+            <td valign=top align=justify class='normal'><N>EDITAL DE CITAÇÃO
+                                     (Com o prazo de 15 dias)<\\N>
+
+             O MM. Juiz de Direito, Dr.(a) Rodrigo Leal Manhaes de Sa -
+             Juiz Titular do Cartório da Vara Criminal da Comarca de Araru...
+             <br><br>
+             <a href='javascript:void("17");' onClick=window.open(
+             'popdespacho.jsp?tipoato=Descri%E7%E3o&numMov=17&descMov=
+             Publica%E7%E3o+de+Edital','','width=500,height=250,left=300,
+             top=300,location=no,menubar=no,resizable=no,scrollbars=yes,
+             status=no,toolbar=no');> Ver íntegra do(a) Publicação de Edital
+                                                         </a>
+                                                         </td>
+            """
+        soup = BeautifulSoup(html, 'lxml')
+        saida = estripa(soup)
+
+        self.assertIn("O MM. Juiz de Direito", saida)
 
 
 class Hash(TestCase):

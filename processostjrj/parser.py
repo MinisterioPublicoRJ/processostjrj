@@ -69,6 +69,9 @@ def parse_metadados(linhas_de_dados, numero_processo, inicio_metadados,
 
 
 def estripa(texto):
+    if not isinstance(texto, str):
+        texto = texto.text
+
     return ' '.join(limpa_conteudo(texto).split("\n")).strip()
 
 
