@@ -205,5 +205,6 @@ def extrai_dados_colunas(colunas):
 
 def prepara_soup(soup):
     elementos_indesejados = soup.find('div', {'id': 'wndHistoricoMandados'})
-    elementos_indesejados.decompose()
+    if elementos_indesejados:
+        elementos_indesejados.decompose()
     return soup

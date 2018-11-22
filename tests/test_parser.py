@@ -296,6 +296,16 @@ class ParserMetadados(TestCase):
 
         self.assertIsNone(elementos_indesejados)
 
+    def test_prepara_soup_sem_elementos_indesejados(self):
+        soup = BeautifulSoup(processo_judicial_1, 'lxml')
+        soup_limpo = prepara_soup(soup)
+
+        elementos_indesejados = soup_limpo.find(
+            'div', {'id': 'wndHistoricoMandados'}
+        )
+
+        self.assertIsNone(elementos_indesejados)
+
 
 class ComparaItensProcessoMixin:
     def assert_items_equal(self, first, second):
