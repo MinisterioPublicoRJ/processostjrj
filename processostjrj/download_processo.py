@@ -15,6 +15,7 @@ URL_PROCESSO_TJRJ = (
     "consultaMov.do?v=2&numProcesso={doc_number}&"
     "acessoIP=internet&tipoUsuario"
 )
+URL_PROCESSO_2 = 'http://www4.tjrj.jus.br/numeracaoUnica/faces/index.jsp?numProcesso={doc_number}'
 _LOGGER = Logger('processostjrj.processo')
 
 
@@ -31,6 +32,10 @@ def processo(processo, headers=None, timeout=10):
             headers=headers,
             timeout=10
         )
+        if b'e outro(s)...' in resp.content:
+            resp = requests.post(URL_PROCESSO_2.format(
+                doc_number=numero_processo)
+            )
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         linhas = soup.find_all('tr')
         inicio, fim = area_dos_metadados(linhas)
@@ -42,7 +47,7 @@ def processo(processo, headers=None, timeout=10):
                 fim))
         dados_processo['hash'] = cria_hash_do_processo(
             json.dumps(dados_processo))
-        dados_processo.update(parse_itens(soup, processo, inicio + 1))
+        # dados_processo.update(parse_itens(soup, processo, inicio + 1))
     except Exception as erro:
         _LOGGER.error(
             "Erro de parsing do processo - {0}, com mensagem: {1}".format(
