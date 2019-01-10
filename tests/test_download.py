@@ -1,10 +1,14 @@
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 from unittest import TestCase
 
 from processostjrj import processo, URL_PROCESSO_TJRJ
 
 
 class Download(TestCase):
+    @patch('processostjrj.download_processo.prepara_soup',
+           return_value='http://link_movimentos.com')
+    @patch('processostjrj.download_processo.cria_url_movimentos',
+           return_value='http://link_movimentos.com')
     @patch('processostjrj.download_processo.parse_itens',
            return_value={'d': 4})
     @patch('processostjrj.download_processo.parse_metadados',
@@ -16,12 +20,13 @@ class Download(TestCase):
     @patch('processostjrj.download_processo.requests')
     @patch('processostjrj.download_processo.formata_numero_processo')
     def test_download_e_parsing_dos_processos(self, _fnp, _req, _chdp, _bs,
-                                              _am, _pm, _pi):
+                                              _am, _pm, _pi, _cum, _ps):
         nprocesso = '1234'
         numero_formatado = '1.2.3.4'
         html = '{"a": 1}'
         _resp_mock = MagicMock()
         _resp_mock.content = html
+        _resp_mock.url = 'http://url.com'
 
         _soup_mock = MagicMock()
 
@@ -29,8 +34,10 @@ class Download(TestCase):
 
         _fnp.return_value = numero_formatado
         _req.post.return_value = _resp_mock
+        _req.get.return_value = _resp_mock
         _chdp.return_value = 'ab12'
         _bs.return_value = _soup_mock
+        _ps.return_value = _soup_mock
 
         processos = processo(
             nprocesso,
@@ -45,7 +52,7 @@ class Download(TestCase):
             allow_redirects=True
         )
         _chdp.assert_called_once_with(html)
-        _bs.assert_called_once_with(html, 'lxml')
+        _bs.assert_has_calls([call(html, 'lxml'), call(html, 'lxml')])
         _soup_mock.find_all.assert_called_once_with('tr')
         _am.assert_called_once_with('rows_mock')
         _pm.assert_called_once_with('rows_mock', '1.2.3.4', 0, 1)

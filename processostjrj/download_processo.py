@@ -6,7 +6,8 @@ from .parser import (
     parse_metadados,
     area_dos_metadados,
     parse_itens,
-    prepara_soup
+    prepara_soup,
+    cria_url_movimentos
 )
 from logging import Logger
 
@@ -31,6 +32,9 @@ def processo(processo, headers=None, timeout=10):
             timeout=10,
             allow_redirects=True
         )
+        soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
+        link_movimentos = cria_url_movimentos(soup, resp.url)
+        resp = requests.get(link_movimentos)
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         linhas = soup.find_all('tr')
         inicio, fim = area_dos_metadados(linhas)

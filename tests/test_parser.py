@@ -8,7 +8,10 @@ from processostjrj.parser import (parse_metadados,
                                   extrai_dados_colunas,
                                   parse_itens,
                                   parse_processo_apensado,
-                                  prepara_soup)
+                                  prepara_soup,
+                                  extrai_link_movimentos,
+                                  extrai_url_base,
+                                  cria_url_movimentos)
 from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_2,
                                  processo_judicial_3,
@@ -305,6 +308,51 @@ class ParserMetadados(TestCase):
         )
 
         self.assertIsNone(elementos_indesejados)
+
+    def test_encontra_link_para_movimentos(self):
+        html = '''<a href="javascript:location.href='consultaMov.do?v=2&'''\
+               '''numProcesso=2013.029.112186-8&acessoIP='''\
+               '''intranet&tipoUsuario='"> <img height="17" width="26"'''\
+               '''class="margin-icos" src="http://www.tjrj.jus.br/imagens/'''\
+               '''ico-nova-busca.gif" title="Listar Todos Movimentos"'''\
+               '''alt="Listar Todos Movimentos"/> </a>'''
+        soup = BeautifulSoup(html, 'lxml')
+        link_mov = extrai_link_movimentos(soup)
+        self.assertEqual(
+            link_mov,
+            'consultaMov.do?v=2&numProcesso=2013.029.112186-8&acessoIP='
+            'intranet&tipoUsuario='
+        )
+
+    def test_extrai_base_url(self):
+        url = 'http://www4.tjrj.jus.br/consultaProcessoWebV2/'\
+              'consultaProc.do?v=2&FLAGNOME=&back=1&tipoConsulta='\
+              'publica&numProcesso=2013.029.112186-8'
+        url_base = extrai_url_base(url)
+
+        self.assertEqual(
+            url_base,
+            'http://www4.tjrj.jus.br/consultaProcessoWebV2'
+        )
+
+    def test_cria_url_para_movimentos(self):
+        html = '''<a href="javascript:location.href='consultaMov.do?v=2&'''\
+               '''numProcesso=2013.029.112186-8&acessoIP='''\
+               '''intranet&tipoUsuario='"> <img height="17" width="26"'''\
+               '''class="margin-icos" src="http://www.tjrj.jus.br/imagens/'''\
+               '''ico-nova-busca.gif" title="Listar Todos Movimentos"'''\
+               '''alt="Listar Todos Movimentos"/> </a>'''
+        url = 'http://www4.tjrj.jus.br/consultaProcessoWebV2/'\
+              'consultaProc.do?v=2&FLAGNOME=&back=1&tipoConsulta='\
+              'publica&numProcesso=2013.029.112186-8'
+        soup = BeautifulSoup(html, 'lxml')
+        url_movimentos = cria_url_movimentos(soup, url)
+
+        self.assertEqual(
+            url_movimentos,
+            'http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaMov.do?'
+            'v=2&numProcesso=2013.029.112186-8&acessoIP=intranet&tipoUsuario='
+        )
 
 
 class ComparaItensProcessoMixin:

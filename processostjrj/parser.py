@@ -208,3 +208,22 @@ def prepara_soup(soup):
     if elementos_indesejados:
         elementos_indesejados.decompose()
     return soup
+
+
+def extrai_link_movimentos(soup):
+    link_img_obj = soup.find(
+        'img', {'src': 'http://www.tjrj.jus.br/imagens/ico-nova-busca.gif'}
+    )
+    if link_img_obj is not None:
+        link_mov_text = link_img_obj.parent.attrs['href']
+        return link_mov_text.split('href=')[1].strip("'")
+
+
+def extrai_url_base(url):
+    return '/'.join(url.split('/')[:4])
+
+
+def cria_url_movimentos(soup, url):
+    link_mov = extrai_link_movimentos(soup)
+    url_base = extrai_url_base(url)
+    return '/'.join([url_base, link_mov])
