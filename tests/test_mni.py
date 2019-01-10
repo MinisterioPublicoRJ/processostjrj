@@ -2,7 +2,7 @@ import os
 
 from unittest import TestCase, mock, main
 
-from processostjrj.mni import cria_cliente
+from processostjrj.mni import cria_cliente, consulta_processo
 
 WSDL = os.environ['WSDL_MNI']
 
@@ -25,6 +25,24 @@ class TestMni(TestCase):
         )
         self.assertFalse(session_mock.verify)
         self.assertEqual(cliente_obj, 'cliente_obj')
+
+    def test_consulta_processo(self):
+        numero_processo = '1234'
+        cliente = mock.MagicMock()
+        cliente.service.consultarProcesso.return_value = 'resposta'
+        resposta = consulta_processo(
+            cliente,
+            numero_processo,
+            _value_1=[{'incluirCabecalho': True}]
+        )
+
+        cliente.service.consultarProcesso.assert_called_once_with(
+            idConsultante=os.environ['ID_MNI'],
+            senhaConsultante=os.environ['SENHA_MNI'],
+            numeroProcesso=numero_processo,
+            _value_1=[{'incluirCabecalho': True}]
+        )
+        self.assertEqual(resposta, 'resposta')
 
 
 if __name__ == '__main__':
