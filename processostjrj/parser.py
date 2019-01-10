@@ -227,3 +227,11 @@ def cria_url_movimentos(soup, url):
     link_mov = extrai_link_movimentos(soup)
     url_base = extrai_url_base(url)
     return '/'.join([url_base, link_mov])
+
+
+def extrai_links_instancias(soup):
+    tabela = soup.find('table')
+    return [
+        e.get_attribute_list('href')[0].strip()
+        for e in tabela.findAll('a')
+    ]

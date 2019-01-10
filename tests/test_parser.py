@@ -11,7 +11,9 @@ from processostjrj.parser import (parse_metadados,
                                   prepara_soup,
                                   extrai_link_movimentos,
                                   extrai_url_base,
-                                  cria_url_movimentos)
+                                  cria_url_movimentos,
+                                  extrai_links_instancias)
+from .fixtures.paginas import desambiguacao
 from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_2,
                                  processo_judicial_3,
@@ -353,6 +355,18 @@ class ParserMetadados(TestCase):
             'http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaMov.do?'
             'v=2&numProcesso=2013.029.112186-8&acessoIP=intranet&tipoUsuario='
         )
+
+    def test_descobre_link_para_instancias(self):
+        soup = BeautifulSoup(desambiguacao, 'lxml')
+        links = extrai_links_instancias(soup)
+        esperado = [
+            'http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?'
+            'v=2&FLAGNOME=&back=1&tipoConsulta=publica&numProcesso='
+            '2015.900.018832-7',
+            'http://www4.tjrj.jus.br/ejud/ConsultaProcesso.aspx?N=201805100327'
+        ]
+
+        self.assertEqual(links, esperado)
 
 
 class ComparaItensProcessoMixin:
