@@ -2,13 +2,18 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from .utils import formata_numero_processo, cria_hash_do_processo
-from .parser import parse_metadados, area_dos_metadados, parse_itens
+from .parser import (
+    parse_metadados,
+    area_dos_metadados,
+    parse_itens,
+    prepara_soup,
+    cria_url_movimentos
+)
 from logging import Logger
 
 URL_PROCESSO_TJRJ = (
-    "http://www4.tjrj.jus.br/consultaProcessoWebV2/"
-    "consultaMov.do?v=2&numProcesso={doc_number}&"
-    "acessoIP=internet&tipoUsuario"
+    'http://www4.tjrj.jus.br/numeracaoUnica/faces/index.jsp?'
+    'numProcesso={doc_number}'
 )
 _LOGGER = Logger('processostjrj.processo')
 
@@ -21,12 +26,16 @@ def processo(processo, headers=None, timeout=10):
     dados_processo = {}
     numero_processo = formata_numero_processo(processo)
     try:
-        resp = requests.get(
+        resp = requests.post(
             URL_PROCESSO_TJRJ.format(doc_number=numero_processo),
             headers=headers,
-            timeout=10
+            timeout=10,
+            allow_redirects=True
         )
-        soup = BeautifulSoup(resp.content, 'lxml')
+        soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
+        link_movimentos = cria_url_movimentos(soup, resp.url)
+        resp = requests.get(link_movimentos)
+        soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         linhas = soup.find_all('tr')
         inicio, fim = area_dos_metadados(linhas)
         dados_processo.update(
