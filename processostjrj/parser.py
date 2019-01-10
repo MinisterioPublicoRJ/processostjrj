@@ -1,4 +1,5 @@
 import re
+import requests
 import collections
 from slugify import slugify
 from .utils import limpa_conteudo, cria_hash_do_movimento
@@ -235,3 +236,12 @@ def extrai_links_instancias(soup):
         e.get_attribute_list('href')[0].strip()
         for e in tabela.findAll('a')
     ]
+
+
+def extrai_link_primeira_instancia(links):
+    padrao = 'primeira\r\n                                  inst&acirc;ncia'
+    padrao = padrao.encode('latin1')
+    for link in links:
+        resp = requests.get(link)
+        if padrao in resp.content.lower():
+            return link
