@@ -3,6 +3,7 @@
 
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
+settings.ini
 .settings/
 #.vscode/
 tsconfig.json
