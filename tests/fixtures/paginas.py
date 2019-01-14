@@ -158,3 +158,266 @@ lista_personagens = """ <div id="listaPersonagens"
                                 </table>
                               </div>
 """
+
+historico_personagens = """                              <div id="listaHistoricoPersonagens"
+                                   style="z-index:1000; position:absolute; width:50%; display:none; border-style:solid;background-color:#FFFFFA;">
+                                <table width="100%" class="tab-bord" cellpadding="3"
+                                       cellspacing="1">
+                                  
+                                  
+                                    
+                                    <tr>
+                                      <td width="21%" bgcolor="#FFFFFA">
+                                        Testemunha
+                                      </td>
+                                      <td width="79%" bgcolor="#FFFFFA" align="left">
+                                          ANDERSON DE OLIVEIRA DOS SANTOS
+                                      </td>
+                                    </tr>
+                                    
+                                      <tr>
+                                        <td colspan="2" bgcolor="#FFFFFA">
+                                          <table width="100%" border="0"
+                                                 align="center" cellpadding="2"
+                                                 cellspacing="1">
+                                            <tr>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Ocorr&ecirc;ncia</td>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Data</td>
+                                              <td width="60%" class="tab-chamada" bgcolor="#D3D3D3">Nome
+                                                                              anterior</td>
+                                            </tr>
+                                            
+                                              <tr>
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    ALTERADO
+                                                  </td>
+                                                
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    29/08/2018
+                                                  </td>
+                                                
+                                                
+                                                  <td width="50%" valign="top" bgcolor="#FFFFFA">
+                                                    ANDERSON DE OLIVEIRA DOS SANTOS (DEF. BRENO)
+                                                  </td>
+                                                
+                                              </tr>
+                                            
+                                            <tr>
+                                              <td>&nbsp;</td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    
+                                  
+                                    
+                                    <tr>
+                                      <td width="21%" bgcolor="#FFFFFA">
+                                        Testemunha
+                                      </td>
+                                      <td width="79%" bgcolor="#FFFFFA" align="left">
+                                          DIOGO MERCHIORE PIRES
+                                      </td>
+                                    </tr>
+                                    
+                                      <tr>
+                                        <td colspan="2" bgcolor="#FFFFFA">
+                                          <table width="100%" border="0"
+                                                 align="center" cellpadding="2"
+                                                 cellspacing="1">
+                                            <tr>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Ocorr&ecirc;ncia</td>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Data</td>
+                                              <td width="60%" class="tab-chamada" bgcolor="#D3D3D3">Nome
+                                                                              anterior</td>
+                                            </tr>
+                                            
+                                              <tr>
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    ALTERADO
+                                                  </td>
+                                                
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    29/08/2018
+                                                  </td>
+                                                
+                                                
+                                                  <td width="50%" valign="top" bgcolor="#FFFFFA">
+                                                    DIOGO MERCHIORE PIRES (DEF. BRENO)
+                                                  </td>
+                                                
+                                              </tr>
+                                            
+                                            <tr>
+                                              <td>&nbsp;</td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    
+                                  
+                                    
+                                    <tr>
+                                      <td width="21%" bgcolor="#FFFFFA">
+                                        Testemunha
+                                      </td>
+                                      <td width="79%" bgcolor="#FFFFFA" align="left">
+                                          MARIA LÚCIA SILVA FERREIRA
+                                      </td>
+                                    </tr>
+                                    
+                                      <tr>
+                                        <td colspan="2" bgcolor="#FFFFFA">
+                                          <table width="100%" border="0"
+                                                 align="center" cellpadding="2"
+                                                 cellspacing="1">
+                                            <tr>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Ocorr&ecirc;ncia</td>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Data</td>
+                                              <td width="60%" class="tab-chamada" bgcolor="#D3D3D3">Nome
+                                                                              anterior</td>
+                                            </tr>
+                                            
+                                              <tr>
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    ALTERADO
+                                                  </td>
+                                                
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    29/08/2018
+                                                  </td>
+                                                
+                                                
+                                                  <td width="50%" valign="top" bgcolor="#FFFFFA">
+                                                    MARIA LÚCIA SILVA FERREIRA (DEF. BRENO)
+                                                  </td>
+                                                
+                                              </tr>
+                                            
+                                            <tr>
+                                              <td>&nbsp;</td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    
+                                  
+                                    
+                                      
+                                        <tr>
+                                          <td colspan="3" bgcolor="#D3D3D3" class="tab-chamada">Personagens baixados/exclu&iacute;dos:</td>
+                                        </tr>
+                                        
+                                      
+                                    
+                                    <tr>
+                                      <td width="21%" bgcolor="#FFFFFA">
+                                        Réu
+                                      </td>
+                                      <td width="79%" bgcolor="#FFFFFA" align="left">
+                                          RODRIGO DA CONCEIÇÃO RODRIGUES
+                                      </td>
+                                    </tr>
+                                    
+                                      <tr>
+                                        <td colspan="2" bgcolor="#FFFFFA">
+                                          <table width="100%" border="0"
+                                                 align="center" cellpadding="2"
+                                                 cellspacing="1">
+                                            <tr>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Ocorr&ecirc;ncia</td>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Data</td>
+                                              <td width="60%" class="tab-chamada" bgcolor="#D3D3D3">Nome
+                                                                              anterior</td>
+                                            </tr>
+                                            
+                                              <tr>
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    BAIXADO
+                                                  </td>
+                                                
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    21/07/2018
+                                                  </td>
+                                                
+                                                
+                                              </tr>
+                                            
+                                            <tr>
+                                              <td>&nbsp;</td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    
+                                  
+                                    
+                                      
+                                    
+                                    <tr>
+                                      <td width="21%" bgcolor="#FFFFFA">
+                                        Réu
+                                      </td>
+                                      <td width="79%" bgcolor="#FFFFFA" align="left">
+                                          ANGELICA GOMES RIBEIRO
+                                      </td>
+                                    </tr>
+                                    
+                                      <tr>
+                                        <td colspan="2" bgcolor="#FFFFFA">
+                                          <table width="100%" border="0"
+                                                 align="center" cellpadding="2"
+                                                 cellspacing="1">
+                                            <tr>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Ocorr&ecirc;ncia</td>
+                                              <td width="20%" class="tab-chamada" bgcolor="#D3D3D3">Data</td>
+                                              <td width="60%" class="tab-chamada" bgcolor="#D3D3D3">Nome
+                                                                              anterior</td>
+                                            </tr>
+                                            
+                                              <tr>
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    BAIXADO
+                                                  </td>
+                                                
+                                                
+                                                  <td width="25%" valign="top" bgcolor="#FFFFFA">
+                                                    21/07/2018
+                                                  </td>
+                                                
+                                                
+                                              </tr>
+                                            
+                                            <tr>
+                                              <td>&nbsp;</td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    
+                                  
+                                  <tr>
+                                    <td colspan="3" valign="top" nowrap="nowrap">
+                                      <hr></hr>
+                                    </td>
+                                  </tr>
+                                  <tr id="linhaImpressao">
+                                    <td nowrap="nowrap" valign="top" align="right" colspan="2">
+                                      <a href="javaScript:printContent('listaHistoricoPersonagens');exibeListaHistoricoPersonagens();" alt="Imprimir">Imprimir</a>
+                                      <a href="javaScript:exibeListaHistoricoPersonagens();"
+                                         alt="Exibe/Oculta a lista de personagens baixados/excluídos">Fechar</a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+"""

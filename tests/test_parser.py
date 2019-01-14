@@ -14,8 +14,11 @@ from processostjrj.parser import (parse_metadados,
                                   cria_url_movimentos,
                                   extrai_links_instancias,
                                   extrai_link_primeira_instancia,
-                                  extrai_personagens)
-from .fixtures.paginas import desambiguacao, lista_personagens
+                                  extrai_personagens,
+                                  extrai_historico_personagens)
+from .fixtures.paginas import (desambiguacao,
+                               lista_personagens,
+                               historico_personagens)
 from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_2,
                                  processo_judicial_3,
@@ -656,6 +659,18 @@ class TestListaPersonagem(TestCase):
 
         elementos_indesejados = soup.find(
             'div', {'id': 'listaPersonagens'}
+        )
+
+        self.assertIsNone(elementos_indesejados)
+
+
+class TestListaHistoricoPersonagem(TestCase):
+    def test_remove_caixa_historico(self):
+        soup = BeautifulSoup(historico_personagens, 'lxml')
+        extrai_historico_personagens(soup)
+
+        elementos_indesejados = soup.find(
+            'div', {'id': 'listaHistoricoPersonagens'}
         )
 
         self.assertIsNone(elementos_indesejados)

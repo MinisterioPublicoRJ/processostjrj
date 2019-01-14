@@ -278,3 +278,7 @@ def extrai_personagens(soup):
     # Remove caixa com personagem apos a extacao
     soup.decompose()
     return personagens
+
+
+def extrai_historico_personagens(soup):
+    soup.decompose()
