@@ -1,3 +1,4 @@
+import re
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -24,7 +25,7 @@ def processo(processo, headers=None, timeout=10):
 
     _LOGGER.info(processo)
     dados_processo = {}
-    numero_processo = formata_numero_processo(processo)
+    numero_processo = formata_numero_processo(re.sub(r'\D',"",processo))
     try:
         resp = requests.post(
             URL_PROCESSO_TJRJ.format(doc_number=numero_processo),
