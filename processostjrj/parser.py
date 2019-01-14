@@ -1,7 +1,10 @@
 import re
+import requests
 import collections
 from slugify import slugify
 from .utils import limpa_conteudo, cria_hash_do_movimento
+
+from bs4 import BeautifulSoup
 
 
 PADRAO_MOV = re.compile(r'numMov=(\d+)')
@@ -220,10 +223,41 @@ def extrai_link_movimentos(soup):
 
 
 def extrai_url_base(url):
-    return '/'.join(url.split('/')[:4])
+    return '/'.join(url.split('/')[:4]).replace(
+        'numeracaoUnica',
+        'consultaProcessoWebV2'
+    )
 
 
 def cria_url_movimentos(soup, url):
     link_mov = extrai_link_movimentos(soup)
+    if link_mov is None:
+        soup_prim_instancia = link_primeira_instancia(soup)
+        link_mov = extrai_link_movimentos(soup_prim_instancia)
+
     url_base = extrai_url_base(url)
     return '/'.join([url_base, link_mov])
+
+
+def extrai_links_instancias(soup):
+    tabela = soup.find('table')
+    return [
+        e.get_attribute_list('href')[0].strip()
+        for e in tabela.findAll('a')
+    ]
+
+
+def extrai_link_primeira_instancia(links):
+    padrao = 'primeira\r\n                                  inst&acirc;ncia'
+    padrao = padrao.encode('latin1')
+    for link in links:
+        resp = requests.get(link)
+        if padrao in resp.content.lower():
+            return link
+
+
+def link_primeira_instancia(soup):
+    links = extrai_links_instancias(soup)
+    link_primeira_instancia = extrai_link_primeira_instancia(links)
+    resp = requests.get(link_primeira_instancia, allow_redirects=True)
+    return BeautifulSoup(resp.content, 'lxml')

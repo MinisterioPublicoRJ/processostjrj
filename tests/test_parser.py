@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from bs4 import BeautifulSoup
 
@@ -11,7 +11,10 @@ from processostjrj.parser import (parse_metadados,
                                   prepara_soup,
                                   extrai_link_movimentos,
                                   extrai_url_base,
-                                  cria_url_movimentos)
+                                  cria_url_movimentos,
+                                  extrai_links_instancias,
+                                  extrai_link_primeira_instancia)
+from .fixtures.paginas import desambiguacao
 from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_2,
                                  processo_judicial_3,
@@ -353,6 +356,40 @@ class ParserMetadados(TestCase):
             'http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaMov.do?'
             'v=2&numProcesso=2013.029.112186-8&acessoIP=intranet&tipoUsuario='
         )
+
+    def test_extrai_link_para_instancias(self):
+        soup = BeautifulSoup(desambiguacao, 'lxml')
+        links = extrai_links_instancias(soup)
+        esperado = [
+            'http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?'
+            'v=2&FLAGNOME=&back=1&tipoConsulta=publica&numProcesso='
+            '2015.900.018832-7',
+            'http://www4.tjrj.jus.br/ejud/ConsultaProcesso.aspx?N=201805100327'
+        ]
+
+        self.assertEqual(links, esperado)
+
+    @patch('processostjrj.parser.requests')
+    def test_extrai_link_primeira_instancia(self, _requests):
+        resp_mock1 = MagicMock()
+        resp_mock1.content = 'Segunda Instância'.encode('latin1')
+        resp_mock2 = MagicMock()
+        resp_mock2.content = 'primeira\r\n                                  '\
+            'inst&acirc;ncia'. encode('latin1')
+        _requests.get.side_effect = [resp_mock1, resp_mock2]
+
+        links = [
+           'http://www4.tjrj.jus.br/ejud/ConsultaProcesso.aspx?N=201805100327',
+           'http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?'
+           'v=2&FLAGNOME=&back=1&tipoConsulta=publica&numProcesso='
+           '2015.900.018832-7'
+        ]
+        link_primeira_instancia = extrai_link_primeira_instancia(links)
+        esperado = 'http://www4.tjrj.jus.br/consultaProcessoWebV2/consulta'\
+                   'Proc.do?v=2&FLAGNOME=&back=1&tipoConsulta=publica&'\
+                   'numProcesso=2015.900.018832-7'
+
+        self.assertEqual(link_primeira_instancia, esperado)
 
 
 class ComparaItensProcessoMixin:
