@@ -649,3 +649,13 @@ class TestListaPersonagem(TestCase):
         }
 
         self.assertEqual(personagens, esperado)
+
+    def test_remove_caixa_com_personagens(self):
+        soup = BeautifulSoup(lista_personagens, 'lxml')
+        extrai_personagens(soup)
+
+        elementos_indesejados = soup.find(
+            'div', {'id': 'listaPersonagens'}
+        )
+
+        self.assertIsNone(elementos_indesejados)

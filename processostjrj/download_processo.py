@@ -7,7 +7,8 @@ from .parser import (
     area_dos_metadados,
     parse_itens,
     prepara_soup,
-    cria_url_movimentos
+    cria_url_movimentos,
+    extrai_personagens
 )
 from logging import Logger
 
@@ -34,8 +35,16 @@ def processo(processo, headers=None, timeout=10):
         )
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         link_movimentos = cria_url_movimentos(soup, resp.url)
+
         resp = requests.get(link_movimentos)
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
+        soup_personagens = soup.find('div', {'id': 'listaPersonagens'})
+
+        if soup_personagens is not None:
+            dados_processo['lista-personagens'] = extrai_personagens(
+                soup_personagens
+            )
+
         linhas = soup.find_all('tr')
         inicio, fim = area_dos_metadados(linhas)
         dados_processo.update(

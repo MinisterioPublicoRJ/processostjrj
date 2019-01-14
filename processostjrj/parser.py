@@ -275,4 +275,6 @@ def extrai_personagens(soup):
         ).encode('ASCII', 'ignore').decode('ASCII').lower()
         personagens[chave].append(linhas[indice+1].text.strip())
 
+    # Remove caixa com personagem apos a extacao
+    soup.decompose()
     return personagens
