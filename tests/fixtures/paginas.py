@@ -81,3 +81,80 @@ primeira_instancia = """          <div id="content" name="content">
                                   Inst&acirc;ncia</h3></div>"""
 
 
+lista_personagens = """ <div id="listaPersonagens"
+                                   style="z-index:1000; position:absolute; width:50%; display:none; border-style:solid;background-color:#FFFFFA;">
+                                <table width="100%" class="tab-bord" cellpadding="3"
+                                       cellspacing="1">
+                                  <tr>
+                                    <td align="left" class="tab-chamada" width="20%"
+                                        valign="top" bgcolor="#D3D3D3">TIPO</td>
+                                    <td align="left" class="tab-chamada" width="40%"
+                                        valign="top" bgcolor="#D3D3D3">PERSONAGEM</td>
+                                  </tr>
+                                  
+                                    <tr>
+                                      <td width="20%" class="tab-titulo-bold"
+                                          bgcolor="#FFFFFA" valign="top">
+                                        Autor
+                                      </td>
+                                      <td width="40%" bgcolor="#FFFFFA" valign="top">
+                                        MINISTERIO PUBLICO DO ESTADO DO RIO DE JANEIRO
+                                      </td>
+                                    </tr>
+                                  
+                                    <tr>
+                                      <td width="20%" class="tab-titulo-bold"
+                                          bgcolor="#FFFFFA" valign="top">
+                                        Réu
+                                      </td>
+                                      <td width="40%" bgcolor="#FFFFFA" valign="top">
+                                        BFDC
+                                      </td>
+                                    </tr>
+                                  
+                                    <tr>
+                                      <td width="20%" class="tab-titulo-bold"
+                                          bgcolor="#FFFFFA" valign="top">
+                                        Advogado
+                                      </td>
+                                      <td width="40%" bgcolor="#FFFFFA" valign="top">
+                                        (XXXXXX) DEFENSOR PÚBLICO
+                                      </td>
+                                    </tr>
+                                  
+                                    <tr>
+                                      <td width="20%" class="tab-titulo-bold"
+                                          bgcolor="#FFFFFA" valign="top">
+                                        Réu
+                                      </td>
+                                      <td width="40%" bgcolor="#FFFFFA" valign="top">
+                                        GBDS
+                                      </td>
+                                    </tr>
+                                  
+                                    <tr>
+                                      <td width="20%" class="tab-titulo-bold"
+                                          bgcolor="#FFFFFA" valign="top">
+                                        Advogado
+                                      </td>
+                                      <td width="40%" bgcolor="#FFFFFA" valign="top">
+                                        (RJ083061) MMGDS
+                                      </td>
+                                    </tr>
+                                  
+                                  <tr>
+                                    <td colspan="2" valign="top" nowrap="nowrap">
+                                      <hr></hr>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2" align="right" valign="top"
+                                        nowrap="nowrap">
+                                      <a href="javaScript:printContent('listaPersonagens');">Imprimir</a>
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <a href="javaScript:exibeListaPersonagens();">Fechar</a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+"""

@@ -13,8 +13,9 @@ from processostjrj.parser import (parse_metadados,
                                   extrai_url_base,
                                   cria_url_movimentos,
                                   extrai_links_instancias,
-                                  extrai_link_primeira_instancia)
-from .fixtures.paginas import desambiguacao
+                                  extrai_link_primeira_instancia,
+                                  extrai_personagens)
+from .fixtures.paginas import desambiguacao, lista_personagens
 from .fixtures.processos import (processo_judicial_1,
                                  processo_judicial_2,
                                  processo_judicial_3,
@@ -635,3 +636,16 @@ class ParserItems(ComparaItensProcessoMixin, TestCase):
         for chave, valor in esperado['itens'][-1].items():
             with self.subTest():
                 self.assertEqual(itens['itens'][-1][chave], valor)
+
+
+class TestListaPersonagem(TestCase):
+    def test_extrai_lista_personagem(self):
+        soup = BeautifulSoup(lista_personagens, 'lxml')
+        personagens = extrai_personagens(soup)
+        esperado = {
+            'autor': ['MINISTERIO PUBLICO DO ESTADO DO RIO DE JANEIRO'],
+            'reu': ['BFDC', 'GBDS'],
+            'advogado': ['(XXXXXX) DEFENSOR PÚBLICO', '(RJ083061) MMGDS']
+        }
+
+        self.assertEqual(personagens, esperado)

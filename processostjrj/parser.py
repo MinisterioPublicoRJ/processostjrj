@@ -1,6 +1,8 @@
 import re
 import requests
 import collections
+from unicodedata import normalize
+
 from slugify import slugify
 from .utils import limpa_conteudo, cria_hash_do_movimento
 
@@ -261,3 +263,16 @@ def link_primeira_instancia(soup):
     link_primeira_instancia = extrai_link_primeira_instancia(links)
     resp = requests.get(link_primeira_instancia, allow_redirects=True)
     return BeautifulSoup(resp.content, 'lxml')
+
+
+def extrai_personagens(soup):
+    linhas = soup.find_all('td', {'bgcolor': '#FFFFFA'})
+    personagens = collections.defaultdict(list)
+    for indice in range(0, len(linhas) - 1, 2):
+        chave = normalize(
+            'NFKD',
+            linhas[indice].text.strip()
+        ).encode('ASCII', 'ignore').decode('ASCII').lower()
+        personagens[chave].append(linhas[indice+1].text.strip())
+
+    return personagens
