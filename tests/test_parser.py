@@ -374,7 +374,8 @@ class ParserMetadados(TestCase):
         resp_mock1 = MagicMock()
         resp_mock1.content = 'Segunda Instância'.encode('latin1')
         resp_mock2 = MagicMock()
-        resp_mock2.content = 'Primeira Instância'.encode('latin1')
+        resp_mock2.content = 'primeira\r\n                                  '\
+            'inst&acirc;ncia'. encode('latin1')
         _requests.get.side_effect = [resp_mock1, resp_mock2]
 
         links = [
