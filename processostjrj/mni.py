@@ -6,9 +6,9 @@ from zeep import Client
 from zeep.transports import Transport
 
 
-WSDL = os.environ['WSDL_MNI']
-ID = os.environ['ID_MNI']
-SENHA = os.environ['SENHA_MNI']
+WSDL = os.environ.get('WSDL_MNI', '')
+ID = os.environ.get('ID_MNI', '')
+SENHA = os.environ.get('SENHA_MNI', '')
 
 
 def cria_cliente():

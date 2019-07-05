@@ -25,7 +25,7 @@ def processo(processo, headers=None, timeout=10):
 
     _LOGGER.info(processo)
     dados_processo = {}
-    numero_processo = formata_numero_processo(re.sub(r'\D',"",processo))
+    numero_processo = formata_numero_processo(re.sub(r'\D', "", processo))
     try:
         resp = requests.post(
             URL_PROCESSO_TJRJ.format(doc_number=numero_processo),
@@ -35,7 +35,7 @@ def processo(processo, headers=None, timeout=10):
         )
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         link_movimentos = cria_url_movimentos(soup, resp.url)
-        resp = requests.get(link_movimentos)
+        resp = requests.get(link_movimentos, headers=headers)
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
         linhas = soup.find_all('tr')
         inicio, fim = area_dos_metadados(linhas)
