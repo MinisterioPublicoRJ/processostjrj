@@ -33,7 +33,7 @@ def processo(processo, headers=None, timeout=10):
             headers=headers,
             timeout=10
         )
-        if 'e outro(s)...' in resp.content:
+        if b'e outro(s)...' in resp.content:
             resp = requests.post(URL_PROCESSO_2.format(
                 doc_number=numero_processo)
             )

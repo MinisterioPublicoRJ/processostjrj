@@ -18,7 +18,7 @@ class Pipeline(TestCase):
                                                _am, _pm, _pi):
         nprocesso = '1234'
         numero_formatado = '1.2.3.4'
-        html = '{"a": 1}'
+        html = b'{"a": 1}'
         _resp_mock = MagicMock()
         _resp_mock.content = html
 
@@ -38,7 +38,7 @@ class Pipeline(TestCase):
             doc_number=numero_formatado),
             headers={'X-Forwarded-For': '10.0.250.15'},
             timeout=10)
-        _chdp.assert_called_once_with(html)
+        _chdp.assert_called_once_with('{"a": 1}')
         _bs.assert_called_once_with(html, 'lxml')
         _soup_mock.find_all.assert_called_once_with('tr')
         _am.assert_called_once_with('rows_mock')
