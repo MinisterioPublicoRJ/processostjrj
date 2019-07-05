@@ -15,7 +15,8 @@ URL_PROCESSO_TJRJ = (
     "consultaMov.do?v=2&numProcesso={doc_number}&"
     "acessoIP=internet&tipoUsuario"
 )
-URL_PROCESSO_2 = 'http://www4.tjrj.jus.br/numeracaoUnica/faces/index.jsp?numProcesso={doc_number}'
+URL_PROCESSO_2 = ('http://www4.tjrj.jus.br/numeracaoUnica/'
+                  'faces/index.jsp?numProcesso={doc_number}')
 _LOGGER = Logger('processostjrj.processo')
 
 
@@ -32,7 +33,7 @@ def processo(processo, headers=None, timeout=10):
             headers=headers,
             timeout=10
         )
-        if b'e outro(s)...' in resp.content:
+        if 'e outro(s)...' in resp.content:
             resp = requests.post(URL_PROCESSO_2.format(
                 doc_number=numero_processo)
             )
