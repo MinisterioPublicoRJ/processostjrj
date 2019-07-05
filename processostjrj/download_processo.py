@@ -47,7 +47,7 @@ def processo(processo, headers=None, timeout=10):
                 fim))
         dados_processo['hash'] = cria_hash_do_processo(
             json.dumps(dados_processo))
-        # dados_processo.update(parse_itens(soup, processo, inicio + 1))
+        dados_processo.update(parse_itens(soup, processo, inicio + 1))
     except Exception as erro:
         _LOGGER.error(
             "Erro de parsing do processo - {0}, com mensagem: {1}".format(
