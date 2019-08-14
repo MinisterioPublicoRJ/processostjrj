@@ -35,9 +35,22 @@ def processo(processo, headers=None, timeout=10):
             allow_redirects=True
         )
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
-        link_movimentos = cria_url_movimentos(soup, resp.url)
+        table = soup.find('table')
+        links = table.find_all('a')
+        if len(links) == 2:
+            new_url = links[0]['href'].strip()
+            new_resp = requests.post(
+                new_url,
+                headers=headers,
+                timeout=10,
+                allow_redirects=True
+            )
+            soup = prepara_soup(BeautifulSoup(new_resp.content, 'lxml'))
+            link_movimentos = cria_url_movimentos(soup, new_resp.url)
+        else:
+            link_movimentos = cria_url_movimentos(soup, resp.url)
 
-        resp = requests.get(link_movimentos)
+        resp = requests.get(link_movimentos, headers=headers)
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
 
         soup_personagens = soup.find('div', {'id': 'listaPersonagens'})
@@ -46,13 +59,14 @@ def processo(processo, headers=None, timeout=10):
             {'id': 'listaHistoricoPersonagens'}
         )
 
-
         if soup_personagens is not None:
+            soup.find('a', {'href': 'javascript:exibeListaPersonagens();'}).decompose()
             dados_processo['lista-personagens'] = extrai_personagens(
                 soup_personagens
             )
 
         if soup_historico is not None:
+            soup.find('a', {'href': 'javascript:exibeListaHistoricoPersonagens();'}).decompose()
             extrai_historico_personagens(soup_historico)
 
         linhas = soup.find_all('tr')
