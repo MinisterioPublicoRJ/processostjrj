@@ -35,9 +35,10 @@ def processo(processo, headers=None, timeout=10):
             allow_redirects=True
         )
         soup = prepara_soup(BeautifulSoup(resp.content, 'lxml'))
-        table = soup.find('table')
-        links = table.find_all('a')
-        if len(links) == 2:
+        form = soup.find('form', {'id': 'form'})
+        if form:
+            table = soup.find('table')
+            links = table.find_all('a')
             new_url = links[0]['href'].strip()
             new_resp = requests.post(
                 new_url,
