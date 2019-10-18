@@ -3,7 +3,7 @@ bs4==0.0.1
 certifi
 chardet==3.0.4
 idna==2.7
-requests==2.19.1
+requests==2.20.0
 python-decouple==3.1
 python-slugify==1.2.6
 urllib3==1.23
