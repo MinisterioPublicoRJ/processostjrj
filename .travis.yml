@@ -1,12 +1,11 @@
 language: python
 python:
-  - "3.5"
-  - "3.6"
+  - "3.9"
 install:
   pip install -r requirements-dev.txt;
 script:
   - flake8 .
-  - coverage run -m pytest
+  - coverage run -m pytest --ignore=lib
 after_success:
   - codecov
 notifications:
