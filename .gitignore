@@ -9,6 +9,9 @@ settings.ini
 tsconfig.json
 jsconfig.json
 
+### Pycharm ###
+.idea
+
 ### Django ###
 *.log
 *.pot
@@ -48,6 +51,10 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+bin/
+share/
+include/
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
