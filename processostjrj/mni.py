@@ -4,11 +4,15 @@ from requests import Session
 
 from zeep import Client
 from zeep.transports import Transport
+from decouple import config
 
+# WSDL = os.environ.get('WSDL_MNI', '')
+# ID = os.environ.get('ID_MNI', '')
+# SENHA = os.environ.get('SENHA_MNI', '')
 
-WSDL = os.environ.get('WSDL_MNI', '')
-ID = os.environ.get('ID_MNI', '')
-SENHA = os.environ.get('SENHA_MNI', '')
+WSDL = config('WSDL_MNI', '')
+ID = config('ID_MNI', '')
+SENHA = config('SENHA_MNI', '')
 
 
 def cria_cliente():

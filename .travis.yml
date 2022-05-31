@@ -1,14 +1,14 @@
 language: python
 python:
-  - "3.5"
-  - "3.6"
+  - "3.9"
 install:
+  pip install --upgrade pip
   pip install -r requirements-dev.txt;
 script:
-  - flake8 .
-  - coverage run -m pytest
+  - flake8 . --count --exit-zero --max-complexity=16 --max-line-length=127 --statistics
+  - coverage run -m pytest --ignore=lib
 after_success:
   - codecov
 notifications:
   email:
-    - felipe.gomes.ferreira@gmail.com
+    - welington.souza@mprj.mp.br

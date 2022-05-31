@@ -9,6 +9,9 @@ settings.ini
 tsconfig.json
 jsconfig.json
 
+### Pycharm ###
+.idea
+
 ### Django ###
 *.log
 *.pot
@@ -28,6 +31,7 @@ media
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
+pyvenv.cfg
 
 # C extensions
 *.so
@@ -48,6 +52,10 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+bin/
+share/
+include/
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
