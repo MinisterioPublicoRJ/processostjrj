@@ -1,5 +1,9 @@
-
 # Created by https://www.gitignore.io/api/code,django,python
+
+
+
+### IDE ###
+.idea
 
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
@@ -8,6 +12,7 @@ settings.ini
 #.vscode/
 tsconfig.json
 jsconfig.json
+
 
 ### Django ###
 *.log
@@ -39,6 +44,7 @@ develop-eggs/
 downloads/
 eggs/
 .eggs/
+bin/
 lib/
 lib64/
 parts/
@@ -48,6 +54,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+pyvenv.cfg
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
