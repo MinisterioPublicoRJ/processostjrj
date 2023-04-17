@@ -1,5 +1,5 @@
 -r requirements.txt
-codecov==2.1.12
-coverage==6.3.2
-flake8==4.0.1
-pytest==7.0.1
+# codecov
+coverage
+flake8
+pytest
