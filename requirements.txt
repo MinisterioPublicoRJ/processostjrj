@@ -12,6 +12,7 @@ mccabe==0.7.0
 numpy==1.24.2
 packaging==23.1
 pandas==2.0.0
+pip
 platformdirs==3.2.0
 pluggy==1.0.0
 py==1.11.0
